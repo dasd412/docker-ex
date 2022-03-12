@@ -1,0 +1,22 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: before install 
+      run: docker build -t dasd412/docker-react-app -f Dockerfile.dev .
+    
+    - name: test code processing
+      run: docker run -e CI=true dasd412/docker-react-app npm run test -- --coverage
+      
