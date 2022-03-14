@@ -28,7 +28,6 @@ jobs:
         application_name: docker-react-app 
         environment_name: Dockerreactapp-env
         region: ap-northeast-2
-        version_label: test
 
     - name: deploy to s3 
       uses: jakejarvis/s3-sync-action@master
