@@ -19,7 +19,10 @@ jobs:
     
     - name: test code processing
       run: docker run -e CI=true dasd412/docker-react-app npm run test -- --coverage
-      
+    
+    - name: generate deployment pacakge
+      run: zip -r deploy.zip .
+    
     - name: Deploy to elastic beanstalk 
       uses: einaregilsson/beanstalk-deploy@v14 
       with: 
@@ -28,16 +31,6 @@ jobs:
         application_name: docker-react-app 
         environment_name: Dockerreactapp-env
         region: ap-northeast-2
-
-    - name: deploy to s3 
-      uses: jakejarvis/s3-sync-action@master
-      with:
-        args: --acl public-read --follow-symlinks --delete
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }} 
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
-        AWS_S3_BUCKET: elasticbeanstalk-ap-northeast-2-235986073852
-        AWS_REGION: ap-northeast-2   
+        version_label: test-docker
+        deploymen_package: deploy.zip
         
-
-
