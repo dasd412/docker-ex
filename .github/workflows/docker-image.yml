@@ -32,5 +32,5 @@ jobs:
         environment_name: Dockerreactapp-env
         region: ap-northeast-2
         version_label: test-docker
-        deploymen_package: deploy.zip
-        
+        deployment_package: deploy.zip
+
